@@ -1,0 +1,46 @@
+<div class="auth-welcome-section">
+  <h1>{{ 'AUTH.WELCOME' | translate }}</h1>
+  <p>{{ 'AUTH.SIGN_IN_SUB' | translate }}</p>
+</div>
+
+<div class="oneui-content">
+  <div class="oneui-card">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      
+      <div class="oneui-input-group">
+        <label for="email">{{ 'AUTH.EMAIL' | translate }}</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          class="oneui-input" 
+          [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | translate"
+        >
+      </div>
+
+      <div class="oneui-input-group">
+        <label for="password">{{ 'AUTH.PASSWORD' | translate }}</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          class="oneui-input" 
+          [placeholder]="'AUTH.PASS_PLACEHOLDER' | translate"
+        >
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ 'AUTH.LOGIN_FAILED' | translate }}
+      </div>
+
+      <button type="submit" class="oneui-btn-primary" [disabled]="loginForm.invalid || isLoading">
+        <span *ngIf="!isLoading">{{ 'AUTH.SIGN_IN_BTN' | translate }}</span>
+        <span *ngIf="isLoading">{{ 'AUTH.SIGNING_IN' | translate }}</span>
+      </button>
+
+      <div class="auth-footer">
+        <p>{{ 'AUTH.NO_ACCOUNT' | translate }} <a href="/register-tenant">{{ 'AUTH.REGISTER_BUSINESS' | translate }}</a></p>
+      </div>
+    </form>
+  </div>
+</div>

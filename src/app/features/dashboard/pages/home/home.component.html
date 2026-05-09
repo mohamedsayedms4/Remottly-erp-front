@@ -1,0 +1,32 @@
+<div class="oneui-page-header">
+  <h1>{{ 'HEADER.WELCOME_USER' | translate:{name: currentUser()?.name || 'Guest'} }}</h1>
+  <p>{{ 'HOME.SUB_WELCOME' | translate }}</p>
+</div>
+
+<div class="oneui-content">
+  <div class="oneui-card">
+    <div class="welcome-stats">
+      <div class="stat-item">
+        <span class="label">{{ 'HOME.TOTAL_SALES' | translate }}</span>
+        <span class="value">$1,240.00</span>
+      </div>
+      <div class="stat-item">
+        <span class="label">{{ 'HOME.ORDERS' | translate }}</span>
+        <span class="value">42</span>
+      </div>
+      <div class="stat-item">
+        <span class="label">{{ 'HOME.NEW_CUSTOMERS' | translate }}</span>
+        <span class="value">12</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="oneui-card">
+    <h3>{{ 'HOME.QUICK_ACTIONS' | translate }}</h3>
+    <div class="actions-grid">
+      <button class="action-btn">{{ 'HOME.NEW_SALE' | translate }}</button>
+      <button class="action-btn">{{ 'HOME.ADD_PRODUCT' | translate }}</button>
+      <button class="action-btn">{{ 'HOME.INVENTORY_REPORT' | translate }}</button>
+    </div>
+  </div>
+</div>

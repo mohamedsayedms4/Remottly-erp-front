@@ -1,0 +1,26 @@
+{
+  "AUTH": {
+    "WELCOME": "أهلاً بك من جديد",
+    "SIGN_IN_SUB": "سجل الدخول إلى حساب الـ POS الخاص بك",
+    "EMAIL": "البريد الإلكتروني",
+    "PASSWORD": "كلمة المرور",
+    "SIGN_IN_BTN": "تسجيل الدخول",
+    "SIGNING_IN": "جاري الدخول...",
+    "NO_ACCOUNT": "ليس لديك حساب شركة؟",
+    "REGISTER_BUSINESS": "سجل شركتك الآن",
+    "EMAIL_PLACEHOLDER": "name@example.com",
+    "PASS_PLACEHOLDER": "أدخل كلمة المرور",
+    "LOGIN_FAILED": "فشل تسجيل الدخول. يرجى التأكد من البيانات."
+  },
+  "COMMON": {
+    "LANGUAGE": "اللغة"
+  },
+  "HEADER": {
+    "SEARCH_PLACEHOLDER": "ابحث عن أي شيء...",
+    "NOTIFICATIONS": "الإشعارات",
+    "PROFILE": "الملف الشخصي",
+    "SETTINGS": "الإعدادات",
+    "LOGOUT": "تسجيل الخروج",
+    "WELCOME_USER": "مرحباً، {{name}}"
+  }
+}

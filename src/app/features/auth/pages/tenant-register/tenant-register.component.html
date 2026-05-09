@@ -1,0 +1,59 @@
+<div class="oneui-page-header">
+  <h1>Register Business</h1>
+  <p>Start your POS journey today</p>
+</div>
+
+<div class="oneui-content">
+  <div class="oneui-card">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <div class="section-title">Business Details</div>
+      
+      <div class="oneui-input-group">
+        <label for="businessName">Business Name</label>
+        <input id="businessName" type="text" formControlName="businessName" class="oneui-input" placeholder="e.g. My Awesome Store">
+      </div>
+
+      <div class="oneui-input-group">
+        <label for="slug">URL Slug</label>
+        <input id="slug" type="text" formControlName="slug" class="oneui-input" placeholder="e.g. my-store">
+        <small class="help-text">This will be your unique business ID.</small>
+      </div>
+
+      <div class="section-title mt-4">Admin Account</div>
+
+      <div class="oneui-input-group">
+        <label for="adminName">Admin Name</label>
+        <input id="adminName" type="text" formControlName="adminName" class="oneui-input" placeholder="Enter your full name">
+      </div>
+
+      <div class="oneui-input-group">
+        <label for="adminEmail">Admin Email</label>
+        <input id="adminEmail" type="email" formControlName="adminEmail" class="oneui-input" placeholder="admin@example.com">
+      </div>
+
+      <div class="oneui-input-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" class="oneui-input" placeholder="Create a secure password">
+      </div>
+
+      <div class="oneui-input-group">
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="text" formControlName="phone" class="oneui-input" placeholder="0123456789">
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <button type="submit" class="oneui-btn-primary" [disabled]="registerForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading">Creating...</span>
+      </button>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a href="/login">Sign in</a></p>
+      </div>
+    </form>
+  </div>
+</div>

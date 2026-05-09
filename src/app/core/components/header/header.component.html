@@ -1,0 +1,171 @@
+<header class="oneui-header">
+  <div class="header-container">
+    <!-- Logo Section (Always Visible) -->
+    <div class="logo-section" (click)="navigateToHome()" style="cursor: pointer;">
+      <img [src]="isDarkMode() ? '/assets/img/logo/logo-night.png' : '/assets/img/logo/logo-dark.png'" alt="Remottly ERP" class="header-logo">
+    </div>
+
+    <!-- Search Section (Desktop Only) -->
+    <div class="search-section desktop-only" *ngIf="currentUser()?.id !== 0">
+      <div class="search-input-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input 
+          type="text" 
+          [placeholder]="'HEADER.SEARCH_PLACEHOLDER' | translate" 
+          (input)="onSearch($event)"
+          class="header-search-input"
+        >
+      </div>
+    </div>
+
+    <!-- Actions Section (Mixed) -->
+    <div class="actions-section">
+      <!-- Language Toggle (Always Visible) -->
+      <button (click)="toggleLanguage(); $event.stopPropagation()" class="lang-btn" [title]="'COMMON.LANGUAGE' | translate">
+        {{ translate.currentLang === 'en' ? 'AR' : 'EN' }}
+      </button>
+
+      <!-- Theme Toggle (Always Visible) -->
+      <button (click)="toggleTheme(); $event.stopPropagation()" class="icon-btn" [title]="(isDarkMode() ? 'Light Mode' : 'Dark Mode')">
+        <svg *ngIf="!isDarkMode()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg *ngIf="isDarkMode()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+
+      <!-- Desktop Notifications -->
+      <div class="dropdown-wrapper desktop-only" *ngIf="currentUser()?.id !== 0">
+        <button (click)="toggleNotifications(); $event.stopPropagation()" class="icon-btn" [class.active]="showNotifications()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <span *ngIf="notificationCount() > 0" class="badge"></span>
+        </button>
+        
+        <div *ngIf="showNotifications()" class="oneui-dropdown notification-dropdown" (click)="$event.stopPropagation()">
+          <div class="dropdown-header">{{ 'HEADER.NOTIFICATIONS' | translate }}</div>
+          <div class="dropdown-content">
+            <div class="empty-state">No new notifications</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Profile -->
+      <div class="dropdown-wrapper desktop-only" *ngIf="currentUser()?.id !== 0">
+        <div class="profile-trigger" (click)="toggleProfileMenu(); $event.stopPropagation()" [class.active]="showProfileMenu()">
+          <div class="avatar">
+            {{ currentUser()?.name?.charAt(0) || 'U' }}
+          </div>
+          <div class="user-info">
+            <span class="user-name">{{ currentUser()?.name }}</span>
+            <span class="user-role">{{ currentUser()?.roles?.[0] }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="showProfileMenu()" class="oneui-dropdown profile-dropdown" (click)="$event.stopPropagation()">
+          <div class="dropdown-user-header">
+            <div class="avatar-lg">{{ currentUser()?.name?.charAt(0) }}</div>
+            <div class="details">
+              <strong>{{ currentUser()?.name }}</strong>
+              <span>{{ currentUser()?.email }}</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            {{ 'HEADER.PROFILE' | translate }}
+          </button>
+          <button class="dropdown-item" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            {{ 'HEADER.SETTINGS' | translate }}
+          </button>
+          <div class="dropdown-divider"></div>
+          <button (click)="logout(); $event.stopPropagation()" class="dropdown-item logout-item" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            {{ 'HEADER.LOGOUT' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Search Overlay (MOVED OUTSIDE HEADER) -->
+<div class="mobile-search-overlay" *ngIf="showMobileSearch()">
+  <div class="mobile-search-header">
+    <div class="search-input-wrapper mobile-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input 
+        type="text" 
+        [placeholder]="'HEADER.SEARCH_PLACEHOLDER' | translate" 
+        (input)="onSearch($event)"
+        class="header-search-input"
+        #mobileSearchInput
+      >
+    </div>
+    <button (click)="closeMobileSearch()" class="icon-btn close-search-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Mobile Bottom Navigation (MOVED OUTSIDE HEADER) -->
+<div class="mobile-bottom-nav" *ngIf="currentUser()?.id !== 0">
+  <div class="nav-items-container">
+    
+    <!-- Home Tab -->
+    <div class="nav-item" (click)="navigateToHome()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    </div>
+
+    <!-- Search Tab -->
+    <div class="nav-item" (click)="toggleMobileSearch(); $event.stopPropagation()" [class.active]="showMobileSearch()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </div>
+
+    <!-- Notifications Tab -->
+    <div class="nav-item dropup-wrapper" (click)="toggleNotifications(); $event.stopPropagation()" [class.active]="showNotifications()">
+      <div class="icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        <span *ngIf="notificationCount() > 0" class="badge badge-mobile"></span>
+      </div>
+      
+      <!-- Mobile Notification Dropup -->
+      <div *ngIf="showNotifications()" class="oneui-dropdown mobile-dropup notification-dropdown" (click)="$event.stopPropagation()">
+        <div class="dropdown-header">{{ 'HEADER.NOTIFICATIONS' | translate }}</div>
+        <div class="dropdown-content">
+          <div class="empty-state">No new notifications</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Tab -->
+    <div class="nav-item dropup-wrapper" (click)="toggleProfileMenu(); $event.stopPropagation()" [class.active]="showProfileMenu()">
+      <div class="avatar avatar-mobile">
+        {{ currentUser()?.name?.charAt(0) || 'U' }}
+      </div>
+
+      <!-- Mobile Profile Dropup -->
+      <div *ngIf="showProfileMenu()" class="oneui-dropdown mobile-dropup profile-dropdown" (click)="$event.stopPropagation()">
+        <div class="dropdown-user-header">
+          <div class="avatar-lg">{{ currentUser()?.name?.charAt(0) }}</div>
+          <div class="details">
+            <strong>{{ currentUser()?.name }}</strong>
+            <span>{{ currentUser()?.email }}</span>
+          </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          {{ 'HEADER.PROFILE' | translate }}
+        </button>
+        <button class="dropdown-item" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          {{ 'HEADER.SETTINGS' | translate }}
+        </button>
+        <div class="dropdown-divider"></div>
+        <button (click)="logout(); $event.stopPropagation()" class="dropdown-item logout-item" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          {{ 'HEADER.LOGOUT' | translate }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

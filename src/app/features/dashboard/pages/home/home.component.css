@@ -1,0 +1,47 @@
+.welcome-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 24px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-item .label {
+  font-size: 14px;
+  color: var(--oneui-text-secondary);
+  font-weight: 500;
+}
+
+.stat-item .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--oneui-blue);
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.action-btn {
+  background: var(--oneui-bg-light);
+  border: 1px solid var(--oneui-border);
+  padding: 16px;
+  border-radius: var(--oneui-radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: var(--oneui-blue-light);
+  border-color: var(--oneui-blue);
+  color: var(--oneui-blue);
+  transform: translateY(-2px);
+}

@@ -1,0 +1,26 @@
+{
+  "AUTH": {
+    "WELCOME": "Welcome back",
+    "SIGN_IN_SUB": "Sign in to your POS account",
+    "EMAIL": "Email address",
+    "PASSWORD": "Password",
+    "SIGN_IN_BTN": "Sign in",
+    "SIGNING_IN": "Signing in...",
+    "NO_ACCOUNT": "Don't have a business account?",
+    "REGISTER_BUSINESS": "Register your business",
+    "EMAIL_PLACEHOLDER": "name@example.com",
+    "PASS_PLACEHOLDER": "Enter your password",
+    "LOGIN_FAILED": "Login failed. Please check your credentials."
+  },
+  "COMMON": {
+    "LANGUAGE": "Language"
+  },
+  "HEADER": {
+    "SEARCH_PLACEHOLDER": "Search anything...",
+    "NOTIFICATIONS": "Notifications",
+    "PROFILE": "Profile",
+    "SETTINGS": "Settings",
+    "LOGOUT": "Logout",
+    "WELCOME_USER": "Hello, {{name}}"
+  }
+}
